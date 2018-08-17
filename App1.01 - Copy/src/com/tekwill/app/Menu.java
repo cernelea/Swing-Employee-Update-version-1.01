@@ -128,6 +128,7 @@ public class Menu extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
 
         new AddMenu().setVisible(true);
+        exceptionLabel.setText("");
 
 
     }//GEN-LAST:event_addActionPerformed
@@ -146,6 +147,7 @@ public class Menu extends javax.swing.JFrame {
             System.out.println("");
             System.out.println("");
             System.out.println("");
+            exceptionLabel.setText(" ");
         } catch (ArrayIndexOutOfBoundsException arrE) {
 
             exceptionLabel.setText("No elements have been selected to delete");
@@ -158,6 +160,8 @@ public class Menu extends javax.swing.JFrame {
         if (!service.getEmployeeMap().isEmpty()) {
 
             new UpdateMenu().setVisible(true);
+            exceptionLabel.setText(" ");
+
         } else {
 
             exceptionLabel.setText("You can not update the specified element please try again");
