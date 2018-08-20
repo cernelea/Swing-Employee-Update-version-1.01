@@ -15,24 +15,26 @@ import java.util.Objects;
 public class ContactDetails {
 
     private Integer id;
-    private String job;
+    private Job job;
     private LocalDate birthday;
     private Address address;
 
-    public ContactDetails(Integer id, String job, LocalDate birthday, Address address) {
+    public ContactDetails(Integer id, Job job, LocalDate birthday, Address address) {
         this.id = id;
         this.job = job;
         this.birthday = birthday;
         this.address = address;
     }
 
-    public String getJob() {
+    public Job getJob() {
         return job;
     }
 
-    public void setJob(String job) {
+    public void setJob(Job job) {
         this.job = job;
     }
+
+
 
     public LocalDate getBirthday() {
         return birthday;

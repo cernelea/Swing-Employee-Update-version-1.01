@@ -7,6 +7,13 @@ package com.tekwill.app;
 
 import com.tekwill.service.Modifiable;
 import com.tekwill.service.Service;
+import java.awt.AWTEvent;
+import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
 public class Menu extends javax.swing.JFrame {
 
     static Modifiable service = new Service();
+
+    static boolean windowIsOpened = false;
 
     public Menu() {
         initComponents();
@@ -127,8 +136,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
 
-        new AddMenu().setVisible(true);
-        exceptionLabel.setText("");
+        if (windowIsOpened == false) {
+            AddMenu addMenu = new AddMenu();
+            addMenu.setVisible(true);
+
+        }
 
 
     }//GEN-LAST:event_addActionPerformed
@@ -158,13 +170,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         if (!service.getEmployeeMap().isEmpty()) {
+            if (windowIsOpened == false) {
+                new UpdateMenu().setVisible(true);
+                exceptionLabel.setText(" ");
+                windowIsOpened = true;
 
-            new UpdateMenu().setVisible(true);
-            exceptionLabel.setText(" ");
+            }
 
         } else {
 
-            exceptionLabel.setText("You can not update the specified element please try again");
+            exceptionLabel.setText("No elements were added to database.Please add before updating.");
 
         }
 
@@ -177,26 +192,18 @@ public class Menu extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
 
             new UpdateMenu().setVisible(true);
+
             UpdateMenu.getNameField().setText(model.getValueAt(selectedRow, 1).toString());
-            UpdateMenu.getJobField().setText(model.getValueAt(selectedRow, 2).toString());
-            UpdateMenu.getBirthDayField().setText(model.getValueAt(selectedRow, 3).toString());
-            UpdateMenu.getCountryField().setText(model.getValueAt(selectedRow, 4).toString());
             UpdateMenu.getPostCodeField().setText(model.getValueAt(selectedRow, 5).toString());
             UpdateMenu.getStreetFIeld().setText(model.getValueAt(selectedRow, 6).toString());
 
         }
 
         if (UpdateMenu.getNameField() != null
-                && UpdateMenu.getJobField() != null
-                && UpdateMenu.getBirthDayField() != null
-                && UpdateMenu.getCountryField() != null
                 && UpdateMenu.getPostCodeField() != null
                 && UpdateMenu.getStreetFIeld() != null) {
 
             UpdateMenu.getNameField().setText(model.getValueAt(selectedRow, 1).toString());
-            UpdateMenu.getJobField().setText(model.getValueAt(selectedRow, 2).toString());
-            UpdateMenu.getBirthDayField().setText(model.getValueAt(selectedRow, 3).toString());
-            UpdateMenu.getCountryField().setText(model.getValueAt(selectedRow, 4).toString());
             UpdateMenu.getPostCodeField().setText(model.getValueAt(selectedRow, 5).toString());
             UpdateMenu.getStreetFIeld().setText(model.getValueAt(selectedRow, 6).toString());
 
@@ -252,5 +259,23 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private static Object[] rowData() {
+        Object rowData[] = new Object[7];
+        rowData[0] = service.getNewEmployee().getId();
+        rowData[1] = service.getNewEmployee().getName();
+        rowData[2] = service.getNewEmployee().getContact().getJob().toString();
+        rowData[3] = service.getNewEmployee().getContact().getBirthday();
+        rowData[4] = service.getNewEmployee().getContact().getAddress().getCountry().toString();
+        rowData[5] = service.getNewEmployee().getContact().getAddress().getPostCode();
+        rowData[6] = service.getNewEmployee().getContact().getAddress().getStreet();
+        return rowData;
+
+    }
+
+    public static Object[] getRowData() {
+        return Menu.rowData();
+
+    }
 
 }

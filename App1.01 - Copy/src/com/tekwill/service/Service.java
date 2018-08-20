@@ -2,7 +2,9 @@ package com.tekwill.service;
 
 import com.tekwill.EmployeeModel.Address;
 import com.tekwill.EmployeeModel.ContactDetails;
+import com.tekwill.EmployeeModel.Country;
 import com.tekwill.EmployeeModel.Employee;
+import com.tekwill.EmployeeModel.Job;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +32,9 @@ public class Service implements Modifiable {
         this.contactMap = new HashMap<>();
         this.addressMap = new HashMap<>();
 
-        
     }
-    
-    
-    
 
-    private void createPrivate(String name, Integer id, ContactDetails contact) {
+    private void createNewEmployee(String name, Integer id, ContactDetails contact) {
 
         Employee employee = new Employee(name, id, contact);
         employeeMap.put(id, employee);
@@ -45,23 +43,23 @@ public class Service implements Modifiable {
 
     }
 
-    public void create(String name, Integer id, ContactDetails contact) {
-        this.createPrivate(name, id, contact);
+    public void createEmployee(String name, Integer id, ContactDetails contact) {
+        this.createNewEmployee(name, id, contact);
 
     }
 
-    private ContactDetails createPrivate(Integer id, String job, LocalDate birthday, Address address) {
+    private ContactDetails createNewContact(Integer id, Job job, LocalDate birthday, Address address) {
         ContactDetails contact = new ContactDetails(id, job, birthday, address);
         contactMap.put(id, contact);
         return contact;
 
     }
 
-    public ContactDetails create(Integer id, String job, LocalDate birthday, Address address) {
-        return this.createPrivate(id, job, birthday, address);
+    public ContactDetails createContact(Integer id, Job job, LocalDate birthday, Address address) {
+        return this.createNewContact(id, job, birthday, address);
     }
 
-    public Address createPrivate(Integer id, String country, String postCode, String street) {
+    private Address createNewAddress(Integer id, Country country, String postCode, String street) {
         Address address = new Address(id, country, postCode, street);
 
         addressMap.put(id, address);
@@ -69,11 +67,11 @@ public class Service implements Modifiable {
 
     }
 
-    public Address create(Integer id, String country, String postCode, String street) {
-        return this.createPrivate(id, country, postCode, street);
+    public Address createAddress(Integer id, Country country, String postCode, String street) {
+        return this.createNewAddress(id, country, postCode, street);
     }
 
-    private void updatePrivate(String name, Integer id, ContactDetails contact) {
+    private void updateEmployeePrivate(String name, Integer id, ContactDetails contact) {
         if (employeeMap.containsKey(id)) {
             Employee employee = employeeMap.get(id);
             employee.setContact(contact);
@@ -85,12 +83,12 @@ public class Service implements Modifiable {
 
     }
 
-    public void update(String name, Integer id, ContactDetails contact) {
-        this.updatePrivate(name, id, contact);
+    public void employeeUpdate(String name, Integer id, ContactDetails contact) {
+        this.updateEmployeePrivate(name, id, contact);
 
     }
 
-    private ContactDetails updatePrivate(Integer id, String job, LocalDate birthday, Address address) {
+    private ContactDetails updateContactprivate(Integer id, Job job, LocalDate birthday, Address address) {
         ContactDetails contactFoundBy = contactMap.get(id);
         if (contactFoundBy != null) {
             contactFoundBy.setId(id);
@@ -102,11 +100,11 @@ public class Service implements Modifiable {
         return null;
     }
 
-    public ContactDetails update(Integer id, String job, LocalDate birthday, Address address) {
-        return this.updatePrivate(id, job, birthday, address);
+    public ContactDetails contactUpdate(Integer id, Job job, LocalDate birthday, Address address) {
+        return this.updateContactprivate(id, job, birthday, address);
     }
 
-    private Address updatePrivate(Integer id, String country, String postCode, String street) {
+    private Address updateAdressPrivate(Integer id, Country country, String postCode, String street) {
         Address addressFoundById = addressMap.get(id);
         if (addressFoundById != null) {
             addressFoundById.setCountry(country);
@@ -117,9 +115,9 @@ public class Service implements Modifiable {
         return null;
     }
 
-    public Address update(Integer id, String country, String postCode, String street) {
+    public Address addressUpdate(Integer id, Country country, String postCode, String street) {
 
-        return this.updatePrivate(id, country, postCode, street);
+        return this.updateAdressPrivate(id, country, postCode, street);
     }
 
     private void deletePrivate(int key) {

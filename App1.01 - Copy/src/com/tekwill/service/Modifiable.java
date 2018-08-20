@@ -2,24 +2,26 @@ package com.tekwill.service;
 
 import com.tekwill.EmployeeModel.Address;
 import com.tekwill.EmployeeModel.ContactDetails;
+import com.tekwill.EmployeeModel.Country;
 import com.tekwill.EmployeeModel.Employee;
+import com.tekwill.EmployeeModel.Job;
 import java.time.LocalDate;
 import java.util.Map;
 import javafx.beans.Observable;
 
 public interface Modifiable {
 
-    void create(String name, Integer id, ContactDetails contact);
+    void createEmployee(String name, Integer id, ContactDetails contact);
 
-    ContactDetails create(Integer id, String job, LocalDate birthday, Address address);
+    ContactDetails createContact(Integer id, Job job, LocalDate birthday, Address address);
 
-    Address create(Integer id, String country, String postCode, String street);
+    Address createAddress(Integer id, Country country, String postCode, String street);
 
-    void update(String name, Integer id, ContactDetails contact);
+    void employeeUpdate(String name, Integer id, ContactDetails contact);
 
-    ContactDetails update(Integer id, String job, LocalDate birthday, Address address);
+    ContactDetails contactUpdate(Integer id, Job job, LocalDate birthday, Address address);
 
-    Address update(Integer id, String country, String postCode, String street);
+    Address addressUpdate(Integer id, Country country, String postCode, String street);
 
     void delete(int key);
 

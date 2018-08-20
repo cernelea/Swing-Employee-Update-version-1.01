@@ -5,11 +5,11 @@ import java.util.Objects;
 public class Address {
 
     private Integer id;
-    private String country;
+    private Country country;
     private String postCode;
     private String street;
 
-    public Address(Integer id, String country, String postCode, String street) {
+    public Address(Integer id, Country country, String postCode, String street) {
         this.id = id;
         this.country = country;
         this.postCode = postCode;
@@ -24,11 +24,11 @@ public class Address {
         this.id = id;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

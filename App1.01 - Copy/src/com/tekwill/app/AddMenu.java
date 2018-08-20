@@ -7,9 +7,16 @@ package com.tekwill.app;
 
 import com.tekwill.EmployeeModel.Address;
 import com.tekwill.EmployeeModel.ContactDetails;
+import com.tekwill.EmployeeModel.Country;
 import com.tekwill.EmployeeModel.Employee;
+import com.tekwill.EmployeeModel.Job;
+import java.awt.Frame;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +30,11 @@ public class AddMenu extends javax.swing.JFrame {
      */
     public AddMenu() {
         initComponents();
+        Menu.windowIsOpened = true;
+        this.addYearsComboBox();
+        this.addMonths();
+        this.addDays();
+
     }
 
     /**
@@ -39,22 +51,24 @@ public class AddMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         streetFIeld = new javax.swing.JTextField();
         idField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
-        jobField = new javax.swing.JTextField();
         exceptionLabel = new javax.swing.JLabel();
-        birthDayField = new javax.swing.JTextField();
-        countryField = new javax.swing.JTextField();
         postCodeField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jobComboBoxAddMenu = new javax.swing.JComboBox<>();
+        countryComboBoxAddMenu = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        yearsComboBox = new javax.swing.JComboBox<>();
+        monthComboBox = new javax.swing.JComboBox<>();
+        dayComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel4.setText("Enter country");
+        jLabel4.setText("Pick country");
 
         jLabel5.setText("Enter day of birth");
 
@@ -64,10 +78,6 @@ public class AddMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Enter Id");
 
-        jLabel7.setText("Enter address");
-
-        jLabel3.setText("Enter job");
-
         streetFIeld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 streetFIeldActionPerformed(evt);
@@ -75,14 +85,6 @@ public class AddMenu extends javax.swing.JFrame {
         });
 
         jLabel8.setText("Enter street");
-
-        jobField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jobFieldActionPerformed(evt);
-            }
-        });
-
-        birthDayField.setText("YYYY-MM-DD");
 
         postCodeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +99,23 @@ public class AddMenu extends javax.swing.JFrame {
             }
         });
 
+        jobComboBoxAddMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programmer", "Electrician", "Manager", "Doctor", "Director" }));
+        jobComboBoxAddMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jobComboBoxAddMenuActionPerformed(evt);
+            }
+        });
+
+        countryComboBoxAddMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Moldova", "Romania", "USA", "UK", "Rusia" }));
+
+        jLabel9.setText("Pick job:");
+
+        yearsComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearsComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,74 +124,90 @@ public class AddMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(streetFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jobField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(postCodeField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(countryField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(birthDayField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(69, 69, 69)
-                        .addComponent(exceptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(exceptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(streetFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(countryComboBoxAddMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(88, 88, 88)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jobComboBoxAddMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(yearsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(34, 34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jobField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(birthDayField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(15, 15, 15)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(countryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(streetFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(exceptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(yearsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(exceptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel9)
+                            .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(countryComboBoxAddMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jobComboBoxAddMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(streetFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,10 +217,6 @@ public class AddMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_streetFIeldActionPerformed
 
-    private void jobFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jobFieldActionPerformed
-
     private void postCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postCodeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_postCodeFieldActionPerformed
@@ -194,9 +225,14 @@ public class AddMenu extends javax.swing.JFrame {
         try {
             String name = nameField.getText();
             Integer id = Integer.parseInt(idField.getText());
-            String job = jobField.getText();
-            LocalDate birthday = LocalDate.parse(birthDayField.getText());
-            String country = countryField.getText();
+            Job job = this.jobSelection();
+
+            Integer year = Integer.parseInt(yearsComboBox.getSelectedItem().toString());
+            Integer month = Integer.parseInt(monthComboBox.getSelectedItem().toString());
+            Integer day = Integer.parseInt(dayComboBox.getSelectedItem().toString());
+
+            LocalDate birthday = LocalDate.of(year, month, day);
+            Country country = this.countrySelection();
             String postCode = postCodeField.getText();
             String street = streetFIeld.getText();
 
@@ -205,10 +241,10 @@ public class AddMenu extends javax.swing.JFrame {
 
             if (!Menu.service.getEmployeeMap().containsKey(id)) {
 
-                Menu.service.create(name, id, contact);
+                Menu.service.createEmployee(name, id, contact);
 
                 DefaultTableModel model = (DefaultTableModel) Menu.getjTable1().getModel();
-                Object rowData[] = this.rowData();
+                Object rowData[] = Menu.getRowData();
 
                 model.addRow(rowData);
 
@@ -218,13 +254,15 @@ public class AddMenu extends javax.swing.JFrame {
                 System.out.println("");
                 System.out.println("");
 
-                dispose();
+                Menu.windowIsOpened = false;
+                this.dispose();
+
             } else {
 
                 exceptionLabel.setText("This map contains the specified id.Please try again");
 
             }
-            
+
         } catch (NumberFormatException numE) {
 
             exceptionLabel.setText("Invalid Id input(Number)");
@@ -237,9 +275,15 @@ public class AddMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jobComboBoxAddMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobComboBoxAddMenuActionPerformed
+
+
+    }//GEN-LAST:event_jobComboBoxAddMenuActionPerformed
+
+    private void yearsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearsComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yearsComboBoxActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -270,38 +314,81 @@ public class AddMenu extends javax.swing.JFrame {
                 new AddMenu().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField birthDayField;
-    private javax.swing.JTextField countryField;
+    private javax.swing.JComboBox<String> countryComboBoxAddMenu;
+    private javax.swing.JComboBox<String> dayComboBox;
     private javax.swing.JLabel exceptionLabel;
     private javax.swing.JTextField idField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jobField;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<String> jobComboBoxAddMenu;
+    private javax.swing.JComboBox<String> monthComboBox;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField postCodeField;
     private javax.swing.JTextField streetFIeld;
+    private javax.swing.JComboBox<String> yearsComboBox;
     // End of variables declaration//GEN-END:variables
 
-    private Object[] rowData() {
-        Object rowData[] = new Object[7];
-        rowData[0] = Menu.service.getNewEmployee().getId();
-        rowData[1] = Menu.service.getNewEmployee().getName();
-        rowData[2] = Menu.service.getNewEmployee().getContact().getJob();
-        rowData[3] = Menu.service.getNewEmployee().getContact().getBirthday();
-        rowData[4] = Menu.service.getNewEmployee().getContact().getAddress().getCountry();
-        rowData[5] = Menu.service.getNewEmployee().getContact().getAddress().getPostCode();
-        rowData[6] = Menu.service.getNewEmployee().getContact().getAddress().getStreet();
-        return rowData;
+    private Job jobSelection() {
+        for (Job job : Job.values()) {
+            if (job.toString().equals(jobComboBoxAddMenu.getSelectedItem().toString().toUpperCase())) {
+
+                return job;
+
+            }
+
+        }
+        return null;
+
+    }
+
+    private Country countrySelection() {
+        for (Country country : Country.values()) {
+            if (country.toString().equals(countryComboBoxAddMenu.getSelectedItem().toString().toUpperCase())) {
+
+                return country;
+            }
+
+        }
+        return null;
+
+    }
+
+    private void addYearsComboBox() {
+
+        for (int i = 2018; i > 1900; i--) {
+
+            this.yearsComboBox.addItem(String.valueOf(i));
+
+        }
+
+    }
+
+    private void addMonths() {
+
+        for (int i = 1; i < 13; i++) {
+
+            this.monthComboBox.addItem(String.valueOf(i));
+
+        }
+
+    }
+
+    private void addDays() {
+
+        for (int i = 1; i < 32; i++) {
+            this.dayComboBox.addItem(String.valueOf(i));
+
+        }
 
     }
 
