@@ -46,7 +46,6 @@
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="dayComboBox" min="-2" pref="66" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel5" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -71,6 +70,7 @@
                                   <Component id="comboBoxAddMenu" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="jLabel5" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
